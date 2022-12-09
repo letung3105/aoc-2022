@@ -65,6 +65,32 @@ impl DirectoryEntry {
     }
 }
 
+struct DirectoryIter {
+    next: Vec<Rc<RefCell<DirectoryEntry>>>,
+}
+
+impl From<&FileSystem> for DirectoryIter {
+    fn from(fs: &FileSystem) -> Self {
+        Self {
+            next: vec![fs.root.clone()],
+        }
+    }
+}
+
+impl Iterator for DirectoryIter {
+    type Item = Rc<RefCell<DirectoryEntry>>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let next = self.next.pop()?;
+        {
+            let next = next.borrow();
+            self.next
+                .extend(next.child_directories.values().into_iter().cloned());
+        }
+        Some(next)
+    }
+}
+
 #[derive(Debug)]
 struct FileSystem {
     navigation: Vec<Rc<RefCell<DirectoryEntry>>>,
@@ -100,7 +126,6 @@ impl FileSystem {
     }
 
     fn cd(&mut self, name: &str) -> std::io::Result<()> {
-        println!("cd {}", name);
         match name {
             "/" => {
                 self.navigation.clear();
@@ -130,7 +155,6 @@ impl FileSystem {
     }
 
     fn mkdir(&mut self, name: &str) {
-        println!("mkdir {}", name);
         if let Some(current_directory) = self.navigation.last_mut() {
             let mut current_directory = current_directory.borrow_mut();
             current_directory.child_directories.insert(
@@ -141,7 +165,6 @@ impl FileSystem {
     }
 
     fn touch(&mut self, name: &str, size: u64) {
-        println!("touch {}", name);
         if let Some(current_directory) = self.navigation.last_mut() {
             let mut current_directory = current_directory.borrow_mut();
             current_directory
@@ -150,36 +173,9 @@ impl FileSystem {
         }
     }
 
-    fn total_small_directory_size(&self, threshold: u64, use_cache: bool) -> u64 {
-        let mut total = 0;
-        let mut to_be_visited = vec![self.root.clone()];
-        while let Some(directory) = to_be_visited.pop() {
-            let mut directory = directory.borrow_mut();
-            let size = directory.size(use_cache);
-            if size <= threshold {
-                total += size;
-            }
-            to_be_visited.extend(directory.child_directories.values().into_iter().cloned());
-        }
-        total
-    }
-
-    fn directory_to_be_deleted(&self, max_allowed_size: u64, use_cache: bool) -> u64 {
+    fn size(&self, use_cache: bool) -> u64 {
         let mut root = self.root.borrow_mut();
-        let total = root.size(use_cache);
-        drop(root);
-
-        let mut min_deleted_size = u64::MAX;
-        let mut to_be_visited = vec![self.root.clone()];
-        while let Some(directory) = to_be_visited.pop() {
-            let mut directory = directory.borrow_mut();
-            let size = directory.size(use_cache);
-            if total - size <= max_allowed_size {
-                min_deleted_size = min_deleted_size.min(size);
-            };
-            to_be_visited.extend(directory.child_directories.values().into_iter().cloned());
-        }
-        min_deleted_size
+        root.size(use_cache)
     }
 }
 
@@ -317,6 +313,24 @@ fn main() {
         file_system.update(command).unwrap();
     }
 
-    println!("{:?}", file_system.total_small_directory_size(100000, true));
-    println!("{:?}", file_system.directory_to_be_deleted(40000000, true));
+    let mut total = 0;
+    for directory in DirectoryIter::from(&file_system) {
+        let mut directory = directory.borrow_mut();
+        let size = directory.size(true);
+        if size <= 100000 {
+            total += size;
+        }
+    }
+    println!("{:?}", total);
+
+    let total = file_system.size(true);
+    let mut min_deleted_size = u64::MAX;
+    for directory in DirectoryIter::from(&file_system) {
+        let mut directory = directory.borrow_mut();
+        let size = directory.size(true);
+        if total - size <= 40000000 {
+            min_deleted_size = min_deleted_size.min(size);
+        };
+    }
+    println!("{:?}", min_deleted_size);
 }
