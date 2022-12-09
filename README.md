@@ -1,2 +1,3 @@
-# aoc-2022
-Solutiions to the 2022 Advent of Code problems
+# Advent of Code 2022
+
+Solutions to the 2022 Advent of Code problems.
