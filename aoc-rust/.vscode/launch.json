@@ -7,34 +7,6 @@
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Debug executable 'day04'",
-      "cargo": {
-        "args": ["build", "--bin=day04", "--package=aoc-rust"],
-        "filter": {
-          "name": "day04",
-          "kind": "bin"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug unit tests in executable 'day04'",
-      "cargo": {
-        "args": ["test", "--no-run", "--bin=day04", "--package=aoc-rust"],
-        "filter": {
-          "name": "day04",
-          "kind": "bin"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
       "name": "Debug executable 'day01'",
       "cargo": {
         "args": ["build", "--bin=day01", "--package=aoc-rust"],
@@ -43,49 +15,7 @@
           "kind": "bin"
         }
       },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug unit tests in executable 'day01'",
-      "cargo": {
-        "args": ["test", "--no-run", "--bin=day01", "--package=aoc-rust"],
-        "filter": {
-          "name": "day01",
-          "kind": "bin"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug executable 'day05'",
-      "cargo": {
-        "args": ["build", "--bin=day05", "--package=aoc-rust"],
-        "filter": {
-          "name": "day05",
-          "kind": "bin"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug unit tests in executable 'day05'",
-      "cargo": {
-        "args": ["test", "--no-run", "--bin=day05", "--package=aoc-rust"],
-        "filter": {
-          "name": "day05",
-          "kind": "bin"
-        }
-      },
-      "args": [],
+      "args": ["../input/day01ex.txt"],
       "cwd": "${workspaceFolder}"
     },
     {
@@ -99,21 +29,49 @@
           "kind": "bin"
         }
       },
-      "args": [],
+      "args": ["../input/day02ex.txt"],
       "cwd": "${workspaceFolder}"
     },
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Debug unit tests in executable 'day02'",
+      "name": "Debug executable 'day03'",
       "cargo": {
-        "args": ["test", "--no-run", "--bin=day02", "--package=aoc-rust"],
+        "args": ["build", "--bin=day03", "--package=aoc-rust"],
         "filter": {
-          "name": "day02",
+          "name": "day03",
           "kind": "bin"
         }
       },
-      "args": [],
+      "args": ["../input/day03ex.txt"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'day04'",
+      "cargo": {
+        "args": ["build", "--bin=day04", "--package=aoc-rust"],
+        "filter": {
+          "name": "day04",
+          "kind": "bin"
+        }
+      },
+      "args": ["../input/day04ex.txt"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'day05'",
+      "cargo": {
+        "args": ["build", "--bin=day05", "--package=aoc-rust"],
+        "filter": {
+          "name": "day05",
+          "kind": "bin"
+        }
+      },
+      "args": ["../input/day05ex.txt"],
       "cwd": "${workspaceFolder}"
     },
     {
@@ -127,21 +85,7 @@
           "kind": "bin"
         }
       },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug unit tests in executable 'day06'",
-      "cargo": {
-        "args": ["test", "--no-run", "--bin=day06", "--package=aoc-rust"],
-        "filter": {
-          "name": "day06",
-          "kind": "bin"
-        }
-      },
-      "args": [],
+      "args": ["../input/day06ex.txt"],
       "cwd": "${workspaceFolder}"
     },
     {
@@ -161,44 +105,16 @@
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Debug unit tests in executable 'day07'",
+      "name": "Debug executable 'day08'",
       "cargo": {
-        "args": ["test", "--no-run", "--bin=day07", "--package=aoc-rust"],
+        "args": ["build", "--bin=day08", "--package=aoc-rust"],
         "filter": {
-          "name": "day07",
+          "name": "day08",
           "kind": "bin"
         }
       },
-      "args": [],
+      "args": ["../input/day08ex.txt"],
       "cwd": "${workspaceFolder}"
     },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug executable 'day03'",
-      "cargo": {
-        "args": ["build", "--bin=day03", "--package=aoc-rust"],
-        "filter": {
-          "name": "day03",
-          "kind": "bin"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "name": "Debug unit tests in executable 'day03'",
-      "cargo": {
-        "args": ["test", "--no-run", "--bin=day03", "--package=aoc-rust"],
-        "filter": {
-          "name": "day03",
-          "kind": "bin"
-        }
-      },
-      "args": [],
-      "cwd": "${workspaceFolder}"
-    }
   ]
 }
