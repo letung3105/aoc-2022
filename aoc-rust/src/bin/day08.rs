@@ -31,10 +31,11 @@ fn main() {
         grid_scenic_score.push(row_scenic_score);
     }
 
-    // Part 01
-
     let height = grid_tree_height.len();
     let width = grid_tree_height[0].len();
+
+    // Part 01
+
     for i in 0..height {
         grid_visibility[i][0] = true;
         grid_visibility[i][width - 1] = true;
@@ -74,32 +75,35 @@ fn main() {
         }
     }
 
-    for (row_visibility, row_height) in grid_visibility.iter().zip(grid_tree_height.iter()) {
-        for (v, h) in row_visibility.iter().zip(row_height.iter()) {
-            print!("{}-{:<3}", h, if *v { 'T' } else { 'F' });
-        }
-        println!();
-    }
     let count = grid_visibility.iter().flatten().filter(|x| **x).count();
     println!("{}", count);
 
     // Part 02
 
-    let mut last_known_idx_top = Vec::default();
-    let mut last_known_idx_left = Vec::default();
-    let mut last_known_idx_bottom = Vec::default();
-    let mut last_known_idx_right = Vec::default();
-    for _ in 0..height {
-        last_known_idx_left.push(vec![0usize; 10]);
-        last_known_idx_right.push(vec![width - 1; 10]);
+    for i in 0..height {
+        grid_scenic_score[i][0] = 0;
+        grid_scenic_score[i][width - 1] = 0;
     }
-    for _ in 0..width {
-        last_known_idx_top.push(vec![0usize; 10]);
-        last_known_idx_bottom.push(vec![height - 1; 10]);
+    for j in 0..width {
+        grid_scenic_score[0][j] = 0;
+        grid_scenic_score[height - 1][j] = 0;
     }
 
-    for i in 0..height {
-        for j in 0..width {
+    let mut last_known_idx_top = Vec::with_capacity(width);
+    let mut last_known_idx_left = Vec::with_capacity(height);
+    let mut last_known_idx_bottom = Vec::with_capacity(width);
+    let mut last_known_idx_right = Vec::with_capacity(height);
+    for _ in 0..height {
+        last_known_idx_left.push([0usize; 10]);
+        last_known_idx_right.push([width - 1; 10]);
+    }
+    for _ in 0..width {
+        last_known_idx_top.push([0usize; 10]);
+        last_known_idx_bottom.push([height - 1; 10]);
+    }
+
+    for i in 1..height - 1 {
+        for j in 1..width - 1 {
             let height = grid_tree_height[i][j] as usize;
             grid_scenic_score[i][j] *= (i - last_known_idx_top[j][height]) as u64;
             grid_scenic_score[i][j] *= (j - last_known_idx_left[i][height]) as u64;
@@ -109,8 +113,8 @@ fn main() {
             }
         }
     }
-    for i in (0..height).rev() {
-        for j in (0..width).rev() {
+    for i in (1..height - 1).rev() {
+        for j in (1..width - 1).rev() {
             let height = grid_tree_height[i][j] as usize;
             grid_scenic_score[i][j] *= (last_known_idx_bottom[j][height] - i) as u64;
             grid_scenic_score[i][j] *= (last_known_idx_right[i][height] - j) as u64;
@@ -121,12 +125,6 @@ fn main() {
         }
     }
 
-    for (row_scenic_score, row_height) in grid_scenic_score.iter().zip(grid_tree_height.iter()) {
-        for (s, h) in row_scenic_score.iter().zip(row_height.iter()) {
-            print!("{}-{:<3}", h, *s);
-        }
-        println!();
-    }
     let max_score = grid_scenic_score.iter().flatten().max().unwrap();
     println!("{}", max_score);
 }
