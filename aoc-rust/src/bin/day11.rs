@@ -247,33 +247,36 @@ fn run(file: File, iterations: usize, very_worry: bool) {
     }
 
     let mut inspections_counts = vec![0usize; monkeys.len()];
-    let lowest_common_denominator: u64 = monkeys.iter().map(|m| m.test_case.modulus).product();
+    let modulus: u64 = monkeys.iter().map(|m| m.test_case.modulus).product();
 
     for _ in 0..iterations {
         for i in 0..monkeys.len() {
-            let monkey = &mut monkeys[i];
-            monkey.items.iter_mut().for_each(|worry| {
-                *worry = monkey.operation.apply(*worry);
-                if !very_worry {
-                    *worry /= 3;
-                }
-                *worry %= lowest_common_denominator;
-            });
-            let throws: Vec<(usize, u64)> = monkey
-                .items
-                .drain(..)
-                .map(|worry| (monkey.test_case.find_outcome(worry), worry))
-                .collect();
+            let throws: Vec<(usize, u64)> = {
+                let monkey = &mut monkeys[i];
+                monkey.items.iter_mut().for_each(|worry| {
+                    *worry = monkey.operation.apply(*worry);
+                    if !very_worry {
+                        *worry /= 3;
+                    }
+                    *worry %= modulus;
+                });
+                monkey
+                    .items
+                    .drain(..)
+                    .map(|mut worry| {
+                        worry = monkey.operation.apply(worry);
+                        if !very_worry {
+                            worry /= 3;
+                        }
+                        worry %= modulus;
+                        (monkey.test_case.find_outcome(worry), worry)
+                    })
+                    .collect()
+            };
             inspections_counts[i] += throws.len();
-            drop(monkey);
-
             for throw in throws {
                 monkeys[throw.0].items.push(throw.1);
             }
-        }
-        println!("{:?}", inspections_counts);
-        for monkey in &monkeys {
-            println!("  {:?}", monkey.items);
         }
     }
 
