@@ -253,13 +253,6 @@ fn run(file: File, iterations: usize, very_worry: bool) {
         for i in 0..monkeys.len() {
             let throws: Vec<(usize, u64)> = {
                 let monkey = &mut monkeys[i];
-                monkey.items.iter_mut().for_each(|worry| {
-                    *worry = monkey.operation.apply(*worry);
-                    if !very_worry {
-                        *worry /= 3;
-                    }
-                    *worry %= modulus;
-                });
                 monkey
                     .items
                     .drain(..)
