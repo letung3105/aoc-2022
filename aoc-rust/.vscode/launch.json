@@ -116,5 +116,61 @@
       "args": ["../input/day08ex.txt"],
       "cwd": "${workspaceFolder}"
     },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'day09'",
+      "cargo": {
+        "args": ["build", "--bin=day09", "--package=aoc-rust"],
+        "filter": {
+          "name": "day09",
+          "kind": "bin"
+        }
+      },
+      "args": ["../input/day09ex.txt"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'day10'",
+      "cargo": {
+        "args": ["build", "--bin=day10", "--package=aoc-rust"],
+        "filter": {
+          "name": "day10",
+          "kind": "bin"
+        }
+      },
+      "args": ["../input/day10ex.txt"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'day11'",
+      "cargo": {
+        "args": ["build", "--bin=day11", "--package=aoc-rust"],
+        "filter": {
+          "name": "day11",
+          "kind": "bin"
+        }
+      },
+      "args": ["../input/day11ex.txt"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'day12'",
+      "cargo": {
+        "args": ["build", "--bin=day12", "--package=aoc-rust"],
+        "filter": {
+          "name": "day12",
+          "kind": "bin"
+        }
+      },
+      "args": ["../input/day12ex.txt"],
+      "cwd": "${workspaceFolder}"
+    }
   ]
 }
