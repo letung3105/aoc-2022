@@ -30,7 +30,7 @@ impl Ord for DijkstraState {
 }
 
 fn dijkstra(
-    adjacency_list: &[Vec<Vec<(usize, usize)>>],
+    adjacency_list: &[Vec<Vec<Position>>],
     position_start: Position,
     position_end: Position,
 ) -> usize {
@@ -74,18 +74,14 @@ fn dijkstra(
     minimum_steps[position_end.0][position_end.1]
 }
 
-fn part01(
-    adjacency_list: &[Vec<Vec<(usize, usize)>>],
-    position_start: Position,
-    position_end: Position,
-) {
+fn part01(adjacency_list: &[Vec<Vec<Position>>], position_start: Position, position_end: Position) {
     let minimum_step = dijkstra(adjacency_list, position_start, position_end);
     println!("{}", minimum_step);
 }
 
 fn part02(
-    adjacency_list: &[Vec<Vec<(usize, usize)>>],
-    potential_starts: &[(usize, usize)],
+    adjacency_list: &[Vec<Vec<Position>>],
+    potential_starts: &[Position],
     position_end: Position,
 ) {
     let mut minimum_step = usize::MAX;
@@ -130,7 +126,7 @@ fn main() {
     }
 
     let mut potential_starts = Vec::default();
-    let mut adjacency_list: Vec<Vec<Vec<(usize, usize)>>> = grid
+    let mut adjacency_list: Vec<Vec<Vec<Position>>> = grid
         .iter()
         .map(|row| row.iter().map(|_| Vec::default()).collect())
         .collect();
