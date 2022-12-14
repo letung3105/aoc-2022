@@ -185,6 +185,20 @@
       },
       "args": ["../input/day13ex.txt"],
       "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'day14'",
+      "cargo": {
+        "args": ["build", "--bin=day14", "--package=aoc-rust"],
+        "filter": {
+          "name": "day14",
+          "kind": "bin"
+        }
+      },
+      "args": ["../input/day14ex.txt"],
+      "cwd": "${workspaceFolder}"
     }
   ]
 }
