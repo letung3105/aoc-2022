@@ -7,10 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug",
-            "program": "${workspaceFolder}/<executable file>",
-            "args": [],
-            "cwd": "${workspaceFolder}"
-        }
+            "name": "Debug day16 example",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin",
+                    "day16"
+                ]
+            },
+            "args": ["../input/day16ex.txt"]
+        },
     ]
 }
