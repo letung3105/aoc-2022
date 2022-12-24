@@ -17,5 +17,18 @@
             },
             "args": ["../input/day16ex.txt"]
         },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug day17 example",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin",
+                    "day17"
+                ]
+            },
+            "args": ["../input/day17ex.txt"]
+        },
     ]
 }
